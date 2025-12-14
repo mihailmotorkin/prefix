@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color: #FBFCFF;
+  --text-color: #1E293B;
+  --section-bg-color: #FFFFFF;
+  --primary-color: #3B82F6;
+  --section-border-color: #E2E8F0;
+  --border-color: #E2E8F0;
+  --section-border: 1px solid var(--section-border-color);
+  --border: 1px solid var(--border-color);
+}
+
+body {
+  height: 100dvh;
+  font-family: sans-serif;
+  background-color: var(--bg-color);
+  background-size: cover;
+  color: var(--text-color);
+}

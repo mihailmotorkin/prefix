@@ -1,0 +1,25 @@
+<div>
+  <p-iconfield>
+    <p-inputicon class="pi pi-search" />
+    <input type="text" pInputText placeholder="Поиск" />
+  </p-iconfield>
+</div>
+
+<!--<nav class="sidebar-nav">-->
+<!--  <ul class="sidebar-nav__list">-->
+<!--    @for ( item of items; track item) {-->
+<!--      <li class="sidebar-nav__item">-->
+<!--        <button class="sidebar-nav__item-link">-->
+<!--          <i [class]="`pi ${item.icon}`"></i>-->
+<!--          <span>{{ item.label }}</span>-->
+<!--          <i class="pi pi-chevron-right"></i>-->
+<!--        </button>-->
+<!--      </li>-->
+<!--    }-->
+<!--  </ul>-->
+<!--</nav>-->
+
+<app-sidebar-menu
+  [items]="items"
+  [chevronPosition]="'right'">
+</app-sidebar-menu>

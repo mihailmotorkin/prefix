@@ -2,10 +2,21 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { providePrimeNG } from 'primeng/config';
+import { PrefixTheme } from '../../libs/primeng/custom-theme';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    providePrimeNG({
+      theme: {
+        preset: PrefixTheme,
+        options: {
+          darkModeSelector: 'none'
+        }
+      },
+      inputVariant: 'filled'
+    })
   ]
 };

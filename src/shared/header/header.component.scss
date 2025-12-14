@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--section-bg-color);
+  padding: 12px 40px;
+  border-bottom: var(--section-border);
+
+}
+
+.header-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-button {
+  --p-button-padding-x: 10px;
+  --p-button-padding-y: 4px;
+}
+
+.nav-button .p-button-content {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
