@@ -1,25 +1,15 @@
-<div>
-  <p-iconfield>
-    <p-inputicon class="pi pi-search" />
-    <input type="text" pInputText placeholder="Поиск" />
-  </p-iconfield>
+<div class="sidebar-search">
+  <prefix-search-input placeholder="Поиск" />
 </div>
 
-<!--<nav class="sidebar-nav">-->
-<!--  <ul class="sidebar-nav__list">-->
-<!--    @for ( item of items; track item) {-->
-<!--      <li class="sidebar-nav__item">-->
-<!--        <button class="sidebar-nav__item-link">-->
-<!--          <i [class]="`pi ${item.icon}`"></i>-->
-<!--          <span>{{ item.label }}</span>-->
-<!--          <i class="pi pi-chevron-right"></i>-->
-<!--        </button>-->
-<!--      </li>-->
-<!--    }-->
-<!--  </ul>-->
-<!--</nav>-->
-
-<app-sidebar-menu
-  [items]="items"
-  [chevronPosition]="'right'">
-</app-sidebar-menu>
+<p-panel-menu [model]="items" [dt]="panelItemStyle$$()">
+  <ng-template #item let-item>
+    <a class="menu-link">
+      <i [class]="item.icon"></i>
+      <span class="menu-label">{{ item.label }}</span>
+      @if (item.items && item.items.length > 0) {
+        <i [class]="item.expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" class="menu-arrow"></i>
+      }
+    </a>
+  </ng-template>
+</p-panel-menu>

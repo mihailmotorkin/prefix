@@ -1,29 +1,37 @@
 :host {
-  padding: 20px 0 12px 0;
+  padding: 20px 6px 12px 6px;
   border: var(--section-border);
   border-radius: 16px;
   background: var(--section-bg-color);
 }
 
-//.custom-panelmenu .custom-menu-item {
-//  display: flex;
-//  align-items: center;
-//  padding: 0.75rem 1rem;
-//  cursor: pointer;
-//  text-decoration: none;
-//  color: inherit;
-//  transition: background-color 0.2s;
-//}
-//
-//.custom-panelmenu .menu-icon {
-//  font-size: 1rem;
-//  margin-right: 0.75rem;
-//}
-//
-//.custom-panelmenu .menu-label {
-//  flex: 1;
-//}
-//
-//.custom-panelmenu .chevron-right {
-//  margin-left: auto;
-//}
+.sidebar-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+  background: var(--section-bg-color);
+}
+
+/* Восстанавливаем базовые стили PanelMenu */
+.menu-link {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: background-color 0.2s;
+}
+
+.menu-label {
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.menu-arrow {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-color);
+  transition: transform 0.2s ease;
+}
+

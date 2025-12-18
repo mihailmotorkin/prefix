@@ -1,0 +1,13 @@
+.role-label {
+  cursor: pointer;
+}
+
+::ng-deep .p-toolbar .user-role__toolbar {
+  border: none;
+}
+
+.user-role__edit-mode {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+}

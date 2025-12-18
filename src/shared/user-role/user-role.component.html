@@ -1,0 +1,26 @@
+@if (user(); as user) {
+  @if (!isEditMode(); as isEditMode) {
+    <p-toolbar class="user-role__toolbar">
+      <ng-template #start>
+        <span
+          class="role-label"
+          (click)="editRole()"
+        >
+          {{ user.role }}
+        </span>
+      </ng-template>
+      <ng-template #end>
+        <p-button text icon="pi pi-list" severity="contrast" />
+        <p-button text icon="pi pi-trash" severity="danger" />
+      </ng-template>
+    </p-toolbar>
+
+  } @else {
+    <div class="user-role__edit-mode">
+      <input pInputText fluid [(ngModel)]="userRole$$" placeholder="Название роли" />
+
+      <p-button text icon="pi pi-check" severity="info" (click)="saveRole()" />
+    </div>
+  }
+}
+
