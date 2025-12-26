@@ -4,6 +4,7 @@ import { InputText } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
+import {UserRightsComponent} from '#shared/user-rights/user-rights.component';
 
 @Component({
   selector: 'prefix-role-edit',
@@ -12,7 +13,8 @@ import { Button } from 'primeng/button';
     InputText,
     Textarea,
     ReactiveFormsModule,
-    Button
+    Button,
+    UserRightsComponent
   ],
   templateUrl: './role-edit.component.html',
   styleUrl: './role-edit.component.scss',

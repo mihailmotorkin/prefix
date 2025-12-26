@@ -1,0 +1,32 @@
+.rights-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: #64748B;
+}
+
+.rights-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.rights-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+:host {
+  .p-chip {
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--primary-color);
+    padding: 5px 8px;
+    gap: 8px;
+  }
+
+}

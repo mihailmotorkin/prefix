@@ -1,0 +1,22 @@
+<div class="rights-amount">
+  <span>Права</span>
+  <span>Всего: 12</span>
+</div>
+
+<div class="rights-container">
+  <div class="rights-content">
+    <p-button label="Добавить" (click)="addNewRight()" />
+
+    @for (right of rights; track right.id) {
+      <p-chip
+        class="right-chip"
+        removeIcon="pi pi-times-circle"
+        [dt]="chipsConfig()"
+        [label]="right.label"
+        [removable]="true"
+      />
+    }
+  </div>
+
+  <p-button label="Скрыть" />
+</div>
