@@ -1,0 +1,15 @@
+.layout__header {
+  padding: 6px 20px 6px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: var(--border);
+}
+
+.layout__header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}

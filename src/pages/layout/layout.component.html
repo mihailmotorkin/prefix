@@ -3,33 +3,7 @@
 <div class="layout-container">
   <prefix-sidebar></prefix-sidebar>
 
-  <div class="layout-content">
-
-    <div class="user-role__header">
-      <h4>Редактирование CRUD ролей</h4>
-
-      <div class="user-role__header-buttons">
-        <p-button severity="contrast" text icon="pi pi-sync"/>
-        <p-button severity="contrast" text icon="pi pi-times"/>
-      </div>
-    </div>
-
-    <div class="user-role__content">
-      <p-button
-        class="user-role__add-button"
-        label="Добавить"
-        icon="pi pi-plus"
-        severity="info"
-        variant="outlined"
-        iconPos="right"
-        (click)="addNewRole()"
-      />
-
-      @for (user of users; track user.id) {
-        <prefix-user-role [user]="user"></prefix-user-role>
-      }
-    </div>
-
+  <main class="layout-content">
     <router-outlet />
-  </div>
+  </main>
 </div>

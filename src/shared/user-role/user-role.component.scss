@@ -1,13 +1,23 @@
-.role-label {
-  cursor: pointer;
+.user-role__toolbar {
+  ::ng-deep .p-toolbar-start {
+    flex: 1 1 auto;
+  }
+
+  &-edit {
+    border: none;
+    gap: 32px;
+
+  }
 }
 
-::ng-deep .p-toolbar .user-role__toolbar {
-  border: none;
-}
+.user-role__input {
+  transition: all 0.2s ease;
 
-.user-role__edit-mode {
-  display: flex;
-  align-items: center;
-  gap: 52px;
+  &-readonly {
+    cursor: pointer;
+  }
+
+  &:not(&-readonly) {
+    cursor: text;
+  }
 }

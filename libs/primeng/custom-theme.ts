@@ -19,6 +19,16 @@ export const PrefixTheme = definePreset(Aura, {
             hoverTextColor: '#ffffff'
           }
         }
+      },
+      textarea: {
+        root: {
+          borderRadius: '4px'
+        }
+      },
+      inputtext: {
+        root: {
+          borderRadius: '4px'
+        }
       }
     },
     borderRadius: {
