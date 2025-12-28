@@ -1,6 +1,9 @@
-import {Component, signal} from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {Button} from 'primeng/button';
 import {Chip} from 'primeng/chip';
+import { Checkbox } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { Select } from 'primeng/select';
 
 interface Right {
   id: number;
@@ -11,13 +14,16 @@ interface Right {
   selector: 'prefix-user-rights',
   imports: [
     Button,
-    Chip
+    Chip,
+    Checkbox,
+    FormsModule,
+    Select
   ],
   templateUrl: './user-rights.component.html',
   styleUrl: './user-rights.component.scss',
 })
 export class UserRightsComponent {
-  protected rights: Right[] = [
+  rights = signal<Right[]>([
     {
       id: 1,
       label: 'Редактирование абонентов'
@@ -34,7 +40,7 @@ export class UserRightsComponent {
       id: 4,
       label: 'Просмотр и редактирование CRUDa шаблонов заданий и автоматичсеких'
     }
-  ];
+  ]);
 
   protected chipsConfig = signal({
     removeIcon: {
@@ -43,11 +49,29 @@ export class UserRightsComponent {
     }
   });
 
+  selectedRights = signal<Right[]>([]);
+
+  isSelected(right: Right): boolean {
+    return this.selectedRights().includes(right);
+  }
+
+  toggleRight(right: any) {
+    if (this.isSelected(right)) {
+      this.selectedRights.update(() => this.selectedRights().filter(r => r !== right));
+    } else {
+      this.selectedRights.set(right);
+    }
+  }
+
   protected addNewRight() {
-    this.rights.push({
-      id: this.rights.length + 1,
+    this.rights().push({
+      id: this.rights().length + 1,
       label: 'Новые права'
     })
+  }
+
+  protected hideAllRights() {
+    console.log('hide all rights');
   }
 
 }
