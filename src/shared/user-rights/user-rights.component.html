@@ -1,64 +1,55 @@
 @if (rights(); as rights) {
   <div class="rights-amount">
     <span>Права</span>
-    <span>Всего: 12</span>
+    <span>Всего: {{ selectedRightsCount() }}</span>
   </div>
 
   <div class="rights-container">
     <div class="rights-content">
-      <p-button label="Добавить" (click)="addNewRight()"/>
+      <p-button
+        label="Добавить"
+        icon="pi pi-plus"
+        (click)="addRights()"
+      />
 
-      @for (right of rights; track right.id) {
-        <p-chip
-          class="right-chip"
-          removeIcon="pi pi-times-circle"
-          [dt]="chipsConfig()"
-          [label]="right.label"
-          [removable]="true"
-        />
+      @if (isRightsVisible$$() && selectedRightsCount() > 0) {
+        @for (right of selectedRights$$(); track right.id) {
+          <p-chip
+            class="right-chip"
+            removeIcon="pi pi-times-circle"
+            [dt]="chipsConfig()"
+            [label]="right.label"
+            [removable]="true"
+            (onRemove)="removeRight(right)"
+          />
+        }
       }
     </div>
 
     <p-button
-      label="Скрыть"
-      (click)="hideAllRights()"
+      [label]="toggleButtonLabel()"
+      (click)="toggleRightsVisibility()"
+      [disabled]="!selectedRightsCount()"
     />
   </div>
 
-  <div class="rights-dropdown">
-    <p-select
-      class="rights-dropdown__select"
-      placeholder="Выберите права"
-      optionLabel="label"
-      optionValue="id"
-      [options]="rights"
-      [(ngModel)]="selectedRights"
-    >
-      <ng-template #selectedItem let-selectedOption>
-        <div class="rights-option">
-          @for (option of selectedOption; track option) {
-            <p-checkbox
-              [binary]="true"
-              [ngModel]="true"
-            />
+  @if (isShowDropdown$$()) {
+    <div class="rights-dropdown">
+      <p-multiSelect
+        class="rights-dropdown__select"
+        placeholder="Выберите права"
+        optionLabel="label"
+        dataKey="id"
+        filter="false"
+        showToggleAll="false"
+        fluid
+        [dt]="multiSelectConfig()"
+        [displaySelectedLabel]="false"
+        [options]="rights"
+        [(ngModel)]="selectedRights$$"
+      >
+      </p-multiSelect>
+    </div>
+  }
 
-            <label>{{ option.label }}</label>
-          }
-        </div>
-      </ng-template>
-
-      <ng-template let-right #item>
-        <div class="flex items-center gap-2">
-          <p-checkbox
-            [binary]="true"
-            [(ngModel)]="isSelected(right)"
-            (ngModelChange)="toggleRight(right)" />
-
-          <label>{{ right.label }}</label>
-
-        </div>
-      </ng-template>
-
-    </p-select>
-  </div>
 }

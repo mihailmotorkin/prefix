@@ -29,10 +29,37 @@
     padding: 5px 8px;
     gap: 8px;
   }
+
+  ::ng-deep.p-multiselect-label.p-placeholder {
+    padding-left: 40px;
+  }
 }
 
-.rights-option {
+.rights__option {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
+.rights-dropdown__select {
+  position: relative;
+
+  .p-multiselect-label-container {
+    padding-left: 2.75rem; // место под иконку
+  }
+
+  &::before {
+    content: '\e908'; // pi-search
+    font-family: 'primeicons', sans-serif;
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748B;
+    pointer-events: none;
+    font-size: 1rem;
+    z-index: 1;
+  }
+
+}
+

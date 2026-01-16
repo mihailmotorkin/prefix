@@ -39,12 +39,13 @@
       ></textarea>
     </label>
 
-    <prefix-user-rights />
+    <prefix-user-rights #userRights />
 
     <p-button
       class="role-edit__button save-button"
       label="Сохранить"
       type="submit"
+      (click)="save()"
     />
   </form>
 

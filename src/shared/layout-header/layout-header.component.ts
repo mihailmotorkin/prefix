@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import { Button } from "primeng/button";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'prefix-layout-header',
@@ -10,5 +11,11 @@ import { Button } from "primeng/button";
   styleUrl: './layout-header.component.scss',
 })
 export class LayoutHeaderComponent {
+  close = output()
+
   title = input<string>('');
+
+  exit() {
+    this.close.emit();
+  }
 }

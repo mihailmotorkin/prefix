@@ -1,9 +1,8 @@
-import { Component, signal } from '@angular/core';
-import {Button} from 'primeng/button';
-import {Chip} from 'primeng/chip';
-import { Checkbox } from 'primeng/checkbox';
+import { Component, computed, signal } from '@angular/core';
+import { Button } from 'primeng/button';
+import { Chip } from 'primeng/chip';
 import { FormsModule } from '@angular/forms';
-import { Select } from 'primeng/select';
+import { MultiSelect } from 'primeng/multiselect';
 
 interface Right {
   id: number;
@@ -15,14 +14,21 @@ interface Right {
   imports: [
     Button,
     Chip,
-    Checkbox,
     FormsModule,
-    Select
+    MultiSelect
   ],
   templateUrl: './user-rights.component.html',
   styleUrl: './user-rights.component.scss',
 })
 export class UserRightsComponent {
+  isShowDropdown$$ = signal(false);
+  isRightsVisible$$ = signal(true);
+
+  selectedRights$$ = signal<Right[]>([]);
+
+  selectedRightsCount = computed(() => this.selectedRights$$().length);
+  toggleButtonLabel = computed(() => this.isRightsVisible$$() ? 'Скрыть' : 'Показать');
+
   rights = signal<Right[]>([
     {
       id: 1,
@@ -49,29 +55,27 @@ export class UserRightsComponent {
     }
   });
 
-  selectedRights = signal<Right[]>([]);
-
-  isSelected(right: Right): boolean {
-    return this.selectedRights().includes(right);
-  }
-
-  toggleRight(right: any) {
-    if (this.isSelected(right)) {
-      this.selectedRights.update(() => this.selectedRights().filter(r => r !== right));
-    } else {
-      this.selectedRights.set(right);
+  protected multiSelectConfig = signal({
+    option: {
+      selectedColor: '{blue.500}',
+      selectedFocusBackground: '{blue.50}'
     }
+  });
+
+  public getSelectedRightIds(): number[] {
+    return this.selectedRights$$().map(right => right.id);
   }
 
-  protected addNewRight() {
-    this.rights().push({
-      id: this.rights().length + 1,
-      label: 'Новые права'
-    })
+  protected toggleRightsVisibility() {
+    this.isRightsVisible$$.update(visible => !visible);
   }
 
-  protected hideAllRights() {
-    console.log('hide all rights');
+  protected addRights() {
+    this.isShowDropdown$$.update(() => true);
   }
 
+  protected removeRight(removed: Right) {
+    this.selectedRights$$.update(rights =>
+      rights.filter(right => right.id !== removed.id))
+  }
 }
