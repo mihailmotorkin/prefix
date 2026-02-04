@@ -1,0 +1,25 @@
+<p-paginator
+  class="custom-paginator"
+  [pt]="pt"
+  [first]="first"
+  [rows]="rows"
+  [totalRecords]="totalRecords"
+  [rowsPerPageOptions]="[10, 20, 50]"
+  [templateLeft]="leftPaginator"
+  (onPageChange)="onPageChange($event)"
+>
+  <ng-template #leftPaginator let-state>
+    <div class="paginator-left">
+          <span class="paginator-info">
+            Показаны задания {{ state.first + 1 }} — {{ rows }} из {{ state.totalRecords }}
+          </span>
+
+      <p-button
+        type="button"
+        label="Показать еще"
+        class="show-more-btn"
+        (click)="showMore()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-paginator>

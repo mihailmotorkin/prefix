@@ -1,0 +1,24 @@
+@if (user(); as user) {
+
+  <span class="user__id">{{ user.id }}</span>
+  <p class="user__name">{{ user.name }}</p>
+
+  @if (user.branchOffices && user.branchOffices.length > 0) {
+    <div class="card-content">
+      @for (branchOffice of user.branchOffices; track branchOffice.id) {
+        <prefix-tag [value]="branchOffice.name"/>
+      }
+    </div>
+  } @else {
+    <span class="no-content"> - </span>
+  }
+  @if (user.roles && user.roles.length > 0) {
+    <div class="card-content">
+      @for (role of user.roles; track role.id) {
+        <prefix-tag [value]="role.name"/>
+      }
+    </div>
+  } @else {
+    <span class="no-content"> - </span>
+  }
+}

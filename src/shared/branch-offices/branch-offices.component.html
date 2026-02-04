@@ -1,1 +1,45 @@
-<p>branch-offices works!</p>
+<p-select
+  #selectComponent
+  optionLabel="name"
+  [options]="[currentBranch$$()]"
+  [(ngModel)]="currentBranch$$"
+  [showClear]="false"
+>
+  <ng-template pTemplate="panel">
+    <form
+      class="branch-offices__form"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="branch-list">
+        @for (branch of branches$$(); track branch.id) {
+          <div class="branch-item">
+            <p-radioButton
+              name="branch"
+              [value]="branch"
+              [inputId]="branch.id"
+              [(ngModel)]="tempSelectedBranch"
+              (onClick)="$event.originalEvent.stopPropagation()"
+            />
+            <label
+              class="branch-label"
+              [for]="branch.id"
+            >
+              {{ branch.name }}
+            </label>
+
+            @if (branch.badge) {
+              <span class="badge">{{ branch.badge }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <p-button
+        class="branch-offices__action-button"
+        label="Сменить"
+        type="submit"
+        (click)="applyBranch()"
+      />
+    </form>
+  </ng-template>
+</p-select>

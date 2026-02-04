@@ -1,0 +1,32 @@
+.custom-paginator {
+  padding: 0;
+  background: var(--bg-color-gray);
+  /* убираем дефолтные отступы - works */
+  --p-paginator-gap: 0;
+
+  /* размеры кнопок - works and all done */
+  //--p-paginator-nav-button-width: 39px;
+  //--p-paginator-nav-button-height: 39px;
+
+  /* сбрасываем индивидуальные радиусы - works and all done */
+  --p-paginator-nav-button-border-radius: 0;
+
+  /* цвета - works and all done*/
+  --p-paginator-nav-button-background: #FFFFFF;
+  --p-paginator-nav-button-hover-background: #EFF6FF;
+  --p-paginator-nav-button-selected-background: #3B82F6;
+
+  --p-paginator-nav-button-color: #4B5563;
+  --p-paginator-nav-button-selected-color: #FFFFFF;
+}
+
+.paginator-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.paginator-info {
+  font-size: 14px;
+  color: #6B7280;
+}

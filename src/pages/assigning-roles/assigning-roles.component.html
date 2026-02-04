@@ -1,0 +1,53 @@
+@if (user$$(); as user) {
+
+  <prefix-layout-header title="Назначение ролей и прав: {{ user.name }}"/>
+
+  <div class="assigning-roles__container">
+    <h1 class="assigning-roles__title">Роли</h1>
+
+    <main class="assigning-roles__main">
+      <header class="assigning-roles__filters">
+        <div class="assigning-roles__filter-wrapper">
+          <prefix-autocomplete
+            placeholder="Наименование роли"
+            [suggestions]="roles$$()"
+            [(selectedItem)]="selectedRoles$$"
+            (onSearch)="handleSearch($event)"
+          />
+
+          <p-multiselect
+            fluid
+            showHeader="false"
+            optionLabel="name"
+            placeholder="Филиалы"
+            [displaySelectedLabel]="false"
+            [options]="firms$$()"
+            [(ngModel)]="selectedFirms$$"
+          ></p-multiselect>
+        </div>
+
+        <p-button
+          class="assigning-roles__add-button"
+          label="Добавить"
+          icon="pi pi-plus"
+          (click)="addNewRole()"
+        />
+      </header>
+
+      <!-- Существующие роли -->
+      @for (role of user$$()?.roles; track role.id) {
+        <prefix-assigning-role-card
+          [user]="user"
+        />
+      }
+
+      <!-- Добавления новой роли -->
+      @if (isAddingNewRole$$()) {
+        <prefix-assigning-role-card
+          [user]="user"
+        />
+      }
+
+    </main>
+  </div>
+}

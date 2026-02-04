@@ -18,6 +18,14 @@ export const routes: Routes = [
             loadComponent: () => import('#pages/').then(m => m.RoleEditComponent)
           }
         ]
+      },
+      {
+        path: 'staffer-roles',
+        loadComponent: () => import('#pages/').then(m => m.StafferRolesComponent)
+      },
+      {
+        path: 'assigning-roles/:userId',
+        loadComponent: () => import('#pages/').then(m => m.AssigningRolesComponent)
       }
     ]
   },

@@ -1,0 +1,49 @@
+.staffer-roles {
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 76px;
+    border-bottom: var(--border);
+    border-radius: 16px;
+    padding: 20px;
+
+  }
+
+  &__main {
+    border-radius: 16px;
+    border: var(--border);
+    background: var(--bg-color-gray);
+    height: auto;
+  }
+
+  &__filters {
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 16px;
+    border-bottom: var(--border);
+  }
+
+  &__item {
+    display: grid;
+    align-items: center;
+    height: 100px;
+    border-bottom: var(--border);
+    background: var(--section-bg-color);
+  }
+
+  &__pagination {
+    padding: 20px;
+  }
+}
+
+.filter-item {
+  position: relative;
+}
+
+.p-multiselect {
+  --p-multiselect-filled-background: #FFFFFF;
+  --p-multiselect-filled-hover-background: #FFFFFF;
+}
+

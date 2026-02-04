@@ -1,0 +1,63 @@
+<prefix-layout-header title="Роли сотрудников"/>
+
+<div class="staffer-roles__header">
+  <p-button
+    class="staffer-roles__reset-button"
+    label="Сбросить"
+    icon="pi pi-times"
+    severity="secondary"
+    (click)="resetFilters()"
+  />
+</div>
+
+<main class="staffer-roles__main">
+  <div class="staffer-roles__filters">
+
+    <div class="filter-item">
+      <prefix-autocomplete
+        placeholder="id/ФИО"
+        [suggestions]="users$$()"
+        [(selectedItem)]="selectedUser$$"
+        (onSearch)="handleSearch($event)"
+      />
+    </div>
+    <div class="filter-item">
+      <p-multiselect
+        fluid
+        showHeader="false"
+        optionLabel="name"
+        placeholder="Филиал"
+        [displaySelectedLabel]="false"
+        [options]="firms$$()"
+        [(ngModel)]="selectedFirms$$"
+      />
+    </div>
+    <div class="filter-item">
+      <p-multiselect
+        fluid
+        showHeader="false"
+        optionLabel="name"
+        placeholder="Роль"
+        [displaySelectedLabel]="false"
+        [options]="roles$$()"
+        [(ngModel)]="selectedRoles$$"
+      />
+    </div>
+  </div>
+
+  <div class="staffer-roles__container">
+    @for (user of users$$(); track user.id) {
+      <div class="staffer-roles__item">
+        <prefix-staffer-role-card
+          [user]="user"
+          (onCardClick)="navigateToAssigningRoles(user)"
+        />
+      </div>
+    }
+  </div>
+
+  <div class="staffer-roles__pagination">
+    <prefix-paginator/>
+  </div>
+
+</main>

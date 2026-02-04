@@ -1,0 +1,40 @@
+:host {
+  display: grid;
+  grid-template-columns: 46px 286px 1fr 1fr;
+  grid-gap: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.user__id {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1E293B;
+}
+
+.user__name {
+  color: #075985;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.no-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: #1E293B;
+}
