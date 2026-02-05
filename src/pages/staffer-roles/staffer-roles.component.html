@@ -16,7 +16,7 @@
     <div class="filter-item">
       <prefix-autocomplete
         placeholder="id/ФИО"
-        [suggestions]="users$$()"
+        [suggestions]="usersForAutocomplete$$()"
         [(selectedItem)]="selectedUser$$"
         (onSearch)="handleSearch($event)"
       />
@@ -46,11 +46,11 @@
   </div>
 
   <div class="staffer-roles__container">
-    @for (user of users$$(); track user.id) {
+    @for (adminRole of adminRoles$$(); track adminRole.id) {
       <div class="staffer-roles__item">
         <prefix-staffer-role-card
-          [user]="user"
-          (onCardClick)="navigateToAssigningRoles(user)"
+          [adminRole]="adminRole"
+          (onCardClick)="navigateToAssigningRoles(adminRole.id)"
         />
       </div>
     }

@@ -6,8 +6,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '#shared';
 import { AssigningRoleCardComponent } from '#pages/assigning-roles/assigning-role-card/assigning-role-card.component';
-import { Firm, Role, User } from '#pages/model';
-import { users } from '#pages/mock-data';
+import { AdminRoleDto, Firm, Role, User } from '#pages/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRolesService } from '#pages/services/user-roles.service';
 
@@ -30,9 +29,10 @@ export class AssigningRolesComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  user$$ = signal<User | null>(null);
-  roles$$ = this.service.allRoles$$;
-  firms$$ = this.service.allFirms$$;
+  user$$ = signal<AdminRoleDto | null>(null);
+  users$$ = this.service.filteredAdminRoles$$;
+  roles$$ = this.service.roles$$;
+  firms$$ = this.service.firms$$;
 
   // Флаг для добавления новой роли
   isAddingNewRole$$ = signal(false);
@@ -49,7 +49,7 @@ export class AssigningRolesComponent implements OnInit {
 
   ngOnInit() {
     const userId = Number(this.route.snapshot.paramMap.get('userId'));
-    const user = users.find(user => user.id === userId);
+    const user = this.users$$().find(user => user.id === userId);
 
     user ? this.user$$.set(user) : this.router.navigate(['/staffer-roles']);
   }

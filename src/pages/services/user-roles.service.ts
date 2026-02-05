@@ -1,18 +1,19 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { firms, roles, users } from '#pages/mock-data';
-import { UserFilters, Firm, Role, User } from '#pages/model';
+import { ADMIN_ROLES, FIRMS, ROLES, USERS } from '#pages/mock-data';
+import { UserRolesFilters, Firm, Role, User, AdminRoleDto } from '#pages/model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRolesService {
   // Все доступные данные
-  private readonly allUsers$$ = signal<User[]>(users);
-  readonly allRoles$$ = signal<Role[]>(roles);
-  readonly allFirms$$ = signal<Firm[]>(firms);
+  readonly users$$ = signal<User[]>(USERS);
+  readonly roles$$ = signal<Role[]>(ROLES);
+  readonly firms$$ = signal<Firm[]>(FIRMS);
+  readonly adminRoles$$ = signal<AdminRoleDto[]>(ADMIN_ROLES);
 
   // Фильтры для списка пользователей
-  readonly filters$$ = signal<UserFilters>({
+  readonly filters$$ = signal<UserRolesFilters>({
     user: null,
     firms: [],
     roles: [],
@@ -20,19 +21,35 @@ export class UserRolesService {
   });
 
   // Отфильтрованные пользователи
-  readonly filteredUsers$$ = computed(() => {
-    const users = this.allUsers$$();
+  readonly filteredAdminRoles$$ = computed(() => {
+    const assignments = this.adminRoles$$();
     const { user, firms, roles, searchQuery } = this.filters$$();
 
     if (!user && !firms.length && !roles.length && !searchQuery) {
+      return assignments;
+    }
+
+    return assignments.filter(assignment =>
+      this.filterByUser(assignment, user) &&
+      this.filterByFirms(assignment, firms) &&
+      this.filterByRoles(assignment, roles) &&
+      this.filterBySearch(assignment, searchQuery)
+    );
+  });
+
+  // Пользователи для автокомплита (с учетом searchQuery)
+  readonly usersForAutocomplete$$ = computed(() => {
+    const users = this.users$$();
+    const query = this.filters$$().searchQuery;
+
+    if (!query) {
       return users;
     }
 
+    const searchLower = query.toLowerCase();
     return users.filter(user =>
-      this.filterByUser(user, user) &&
-      this.filterBySearch(user, searchQuery) &&
-      this.filterByRoles(user, roles) &&
-      this.filterByFirms(user, firms)
+      user.name.toLowerCase().includes(searchLower) ||
+      user.id.toString().includes(query)
     );
   });
 
@@ -42,16 +59,16 @@ export class UserRolesService {
     this.patchFilters({ user });
   }
 
-  setSearchQuery(query: string) {
-    this.patchFilters({ searchQuery: query });
-  }
-
   setRoles(roles: Role[]) {
     this.patchFilters({ roles });
   }
 
   setFirms(firms: Firm[]) {
     this.patchFilters({ firms });
+  }
+
+  setSearchQuery(query: string) {
+    this.patchFilters({ searchQuery: query });
   }
 
   resetFilters() {
@@ -63,45 +80,65 @@ export class UserRolesService {
     });
   }
 
+  getUserById(id: number): User | undefined {
+    return this.users$$().find(u => u.id === id);
+  }
+
+  getAdminRolesByUserId(userId: number): AdminRoleDto[] {
+    return this.adminRoles$$().filter(ar => ar.user.id === userId);
+  }
+
   /* ====== PRIVATE HELPERS ====== */
 
-  private patchFilters(patch: Partial<UserFilters>) {
+  private patchFilters(patch: Partial<UserRolesFilters>) {
     this.filters$$.update(filters => ({ ...filters, ...patch }));
   }
 
-  private filterByUser(user: User, selectedUser: User | null): boolean {
-    return !selectedUser || user.id === selectedUser.id;
-  }
-
-  private filterBySearch(user: User, query: string): boolean {
-    if (!query) {
+  private filterByUser(assignment: AdminRoleDto, filterUser: User | null): boolean {
+    if (!filterUser) {
       return true;
     }
-    const searchQuery = query.trim().toLowerCase();
-    return user.name.toLowerCase().includes(searchQuery) || user.id.toString().includes(searchQuery);
+    return assignment.user.id === filterUser.id;
   }
 
-  private filterByRoles(user: User, roles: Role[]): boolean {
-    if (!roles.length) {
+  private filterByRoles(assignment: AdminRoleDto, filterRoles: Role[]): boolean {
+    if (!filterRoles.length) {
       return true;
     }
-    if (!user.roles) {
+
+    if (!assignment.roles || !assignment.roles.length) {
       return false;
     }
-    return roles.some(role =>
-      user.roles!.some(userRole => userRole.id === role.id)
+    return assignment.roles.some(assignmentRole =>
+      filterRoles.some(filterRole  => filterRole.id === assignmentRole.id)
     );
   }
 
-  private filterByFirms(user: User, firms: Firm[]): boolean {
-    if (!firms.length) {
+  private filterByFirms(assignment: AdminRoleDto, filterFirms: Firm[]): boolean {
+    if (!filterFirms.length) {
       return true;
     }
-    if (!user.firms) {
+    if (assignment.isGlobal) {
+      return true;
+    }
+    if (!assignment.firms || !assignment.firms.length) {
       return false;
     }
-    return firms.some(firms =>
-      user.firms!.some(userFirms => userFirms.id === firms.id)
+    return assignment.firms.some(assignmentFirm =>
+      filterFirms.some(filterFirm => filterFirm.id === assignmentFirm.id)
+    );
+  }
+
+  private filterBySearch(assignment: AdminRoleDto, query: string): boolean {
+    if (!query) {
+      return true;
+    }
+
+    const searchQuery = query.toLowerCase();
+
+    return (
+      assignment.user.name.toLowerCase().includes(searchQuery) ||
+      assignment.user.id.toString().includes(searchQuery)
     );
   }
 

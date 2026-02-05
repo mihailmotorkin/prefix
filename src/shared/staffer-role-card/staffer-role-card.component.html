@@ -1,20 +1,20 @@
-@if (user(); as user) {
+@if (adminRole(); as assignment) {
 
-  <span class="user__id">{{ user.id }}</span>
-  <p class="user__name">{{ user.name }}</p>
+  <span class="user__id">{{ assignment.user.id }}</span>
+  <p class="user__name">{{ assignment.user.name }}</p>
 
-  @if (user.branchOffices && user.branchOffices.length > 0) {
+  @if (assignment.firms && assignment.firms.length > 0) {
     <div class="card-content">
-      @for (branchOffice of user.branchOffices; track branchOffice.id) {
-        <prefix-tag [value]="branchOffice.name"/>
+      @for (firm of assignment.firms; track firm.id) {
+        <prefix-tag [value]="firm.name"/>
       }
     </div>
   } @else {
     <span class="no-content"> - </span>
   }
-  @if (user.roles && user.roles.length > 0) {
+  @if (assignment.roles && assignment.roles.length > 0) {
     <div class="card-content">
-      @for (role of user.roles; track role.id) {
+      @for (role of assignment.roles; track role.id) {
         <prefix-tag [value]="role.name"/>
       }
     </div>

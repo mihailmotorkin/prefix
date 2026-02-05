@@ -4,7 +4,7 @@ import { Button } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-import { Firm, Role, User } from '#pages/model';
+import { AdminRoleDto, Firm, Role, User } from '#pages/model';
 import { AutocompleteComponent } from '#shared';
 import { UserRolesService } from '#pages/';
 
@@ -24,7 +24,7 @@ import { UserRolesService } from '#pages/';
 export class AssigningRoleCardComponent {
   private service = inject(UserRolesService);
 
-  user = input.required<User>();
+  user = input.required<AdminRoleDto>();
   roleName = computed(() =>
     this.user().roles?.map(role => role.name)
   );
@@ -32,8 +32,8 @@ export class AssigningRoleCardComponent {
   isEditMode$$ = signal(false);
   checked$$ = signal(false);
 
-  firms = this.service.allFirms$$;
-  roles = this.service.allRoles$$;
+  firms$$ = this.service.firms$$;
+  roles$$ = this.service.roles$$;
 
   selectedRoles$$ = signal<Role[]>([]);
   selectedFirms$$ = signal<Firm[]>([]);

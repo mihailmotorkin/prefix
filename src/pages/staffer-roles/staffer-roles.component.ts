@@ -30,11 +30,11 @@ export class StafferRolesComponent {
   private service = inject(UserRolesService);
   private router = inject(Router);
 
-  users$$ = this.service.filteredUsers$$;
-  roles$$ = this.service.allRoles$$;
-  firms$$ = this.service.allFirms$$;
-
-  filters$$ = this.service.filters$$;
+  // Данные для отображения
+  adminRoles$$ = this.service.filteredAdminRoles$$; // Отфильтрованные назначения
+  usersForAutocomplete$$ = this.service.usersForAutocomplete$$; // Для автокомплита
+  roles$$ = this.service.roles$$;
+  firms$$ = this.service.firms$$;
 
   // Локальные signals для binding
   selectedUser$$ = signal<User | null>(null);
@@ -56,12 +56,11 @@ export class StafferRolesComponent {
     this.selectedUser$$.set(null);
     this.selectedRoles$$.set([]);
     this.selectedFirms$$.set([]);
-
     this.service.resetFilters();
   }
 
-  navigateToAssigningRoles(user: User) {
-    this.router.navigate(['/assigning-roles', user.id]);
+  navigateToAssigningRoles(userId: number) {
+    this.router.navigate(['/assigning-roles', userId]);
   }
 
 }

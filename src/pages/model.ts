@@ -1,14 +1,19 @@
 export interface User {
   id: number;
   name: string;
-  firms: Firm[] | null;
-  roles: Role[] | null;
 }
 
 export interface Role {
   id: number;
   name: string;
-  isGlobal?: boolean;
+  description?: string;
+  rights?: Right[]
+}
+
+export interface Right {
+  id: number;
+  name: string;
+  tag?: string;
 }
 
 export interface Firm {
@@ -16,15 +21,17 @@ export interface Firm {
   name: string;
 }
 
-export interface UserFilters {
-  user: User | null;
+export interface AdminRoleDto  {
+  id: number;
+  user: User;
   roles: Role[];
   firms: Firm[];
-  searchQuery: string;
+  isGlobal: boolean;
 }
 
-export interface RoleFilters {
-  role: Role | null;
+export interface UserRolesFilters {
+  user: User | null;
+  roles: Role[];
   firms: Firm[];
   searchQuery: string;
 }
