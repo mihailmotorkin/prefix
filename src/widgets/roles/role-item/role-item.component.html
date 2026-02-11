@@ -1,0 +1,45 @@
+@if (role(); as role) {
+  <p-toolbar
+    class="user-role__toolbar"
+    [class.user-role__toolbar-edit]="isEditMode()"
+  >
+    <ng-template #start>
+      <input
+        #roleInput
+        pInputText
+        fluid
+        class="role-item__input"
+        variant="outlined"
+        [readonly]="!isEditMode()"
+        [(ngModel)]="editableRoleName"
+        (click)="editRoleTitle()"
+        (blur)="saveRole()"
+        [dt]="inputRoleConfig()"
+      />
+    </ng-template>
+
+    <ng-template #end>
+      @if(!isEditMode()) {
+        <p-button
+          text
+          icon ="pi pi-list"
+          severity="contrast"
+          (click)="editRole()"
+        />
+        <p-button
+          text
+          icon ="pi pi-trash"
+          severity="danger"
+          (click)="removeRole()"
+        />
+      } @else {
+        <p-button
+          text
+          icon ="pi pi-check"
+          severity="info"
+          (click)="saveRole()"
+        />
+      }
+    </ng-template>
+  </p-toolbar>
+}

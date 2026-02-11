@@ -1,0 +1,63 @@
+<prefix-layout-header [title]="'Назначение ролей и прав: ' + adminName$$()"/>
+
+<div class="assigning-roles__container">
+  <h1 class="assigning-roles__title">Роли</h1>
+
+  <main class="assigning-roles__main">
+    <header class="assigning-roles__filters">
+      <div class="assigning-roles__filter-wrapper">
+        <prefix-autocomplete
+          placeholder="Наименование роли"
+          [suggestions]="roleSuggestions$$()"
+          [(selectedItem)]="selectedRole$$"
+          (onSearch)="handleSearch($event)"
+        />
+
+        <p-multiselect
+          fluid
+          showHeader="false"
+          optionLabel="name"
+          placeholder="Филиалы"
+          [displaySelectedLabel]="false"
+          [options]="availableFirms$$()"
+          [(ngModel)]="selectedFirms$$"
+        ></p-multiselect>
+      </div>
+
+      <p-button
+        class="assigning-roles__add-button"
+        label="Добавить"
+        icon="pi pi-plus"
+        (click)="startAddingRole()"
+      />
+    </header>
+
+    <!-- Существующие назначения ролей -->
+    @for (assignment of assignments$$(); track assignment.id) {
+      <prefix-assigning-role-card
+        [assignment]="assignment"
+        [availableRoles]="availableRoles$$()"
+        [availableFirms]="availableFirms$$()"
+        [isEditMode]="isEditMode(assignment.id)"
+        (onSave)="saveRole($event)"
+        (onCancel)="cancelEdit()"
+        (onDelete)="deleteRole($event)"
+        (onEdit)="startEditingRole(assignment.id)"
+      ></prefix-assigning-role-card>
+    }
+
+    <!-- Добавление новой роли -->
+    @if (isAddingNew$$()) {
+      <prefix-assigning-role-card
+        [assignment]="null"
+        [availableRoles]="availableRoles$$()"
+        [availableFirms]="availableFirms$$()"
+        [isEditMode]="true"
+        (onSave)="saveRole($event)"
+        (onCancel)="cancelEdit()"
+      ></prefix-assigning-role-card>
+    }
+
+  </main>
+</div>
+

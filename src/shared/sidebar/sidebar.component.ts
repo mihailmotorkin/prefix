@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { SearchInputComponent } from '#shared/search-input/search-input.component';
+import { SearchInputComponent } from '#shared/components/search-input/search-input.component';
 
 interface MenuItem {
   label: string;

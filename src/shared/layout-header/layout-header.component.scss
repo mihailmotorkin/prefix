@@ -4,8 +4,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  border: var(--border);
-  border-radius: 12px 12px 0 0;
+  border-bottom: var(--border);
 }
 
 .layout__header-actions {

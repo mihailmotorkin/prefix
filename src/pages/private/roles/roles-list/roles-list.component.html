@@ -1,0 +1,27 @@
+<prefix-layout-header title="Редактирование CRUD ролей" />
+
+<div class="autocomplete-wrapper">
+  <prefix-autocomplete
+    [fluid]="false"
+    placeholder="Название"
+  />
+</div>
+<div class="roles-table__container">
+  <p-button
+    class="add-role__button"
+    label="Добавить"
+    icon="pi pi-plus"
+    severity="info"
+    variant="outlined"
+    iconPos="right"
+    (click)="addNewRole()"
+  />
+
+  <prefix-roles-table
+    [roles]="roles$$()"
+    (edit)="editRole($event)"
+    (rename)="renameRole($event)"
+    (remove)="removeRole($event)"
+  />
+
+</div>

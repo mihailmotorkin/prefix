@@ -1,0 +1,55 @@
+@if (rights(); as rights) {
+  <div class="rights-amount">
+    <span>Права</span>
+    <span>Всего: {{ selectedRightsCount() }}</span>
+  </div>
+
+  <div class="rights-container">
+    <div class="rights-content">
+      <p-button
+        label="Добавить"
+        icon="pi pi-plus"
+        (click)="addRights()"
+      />
+
+      @if (isRightsVisible$$() && selectedRightsCount() > 0) {
+        @for (right of selectedRights$$(); track right.id) {
+          <p-chip
+            class="right-chip"
+            removeIcon="pi pi-times-circle"
+            [dt]="chipsConfig()"
+            [label]="right.name"
+            [removable]="true"
+            (onRemove)="removeRight(right)"
+          />
+        }
+      }
+    </div>
+
+    <p-button
+      [label]="toggleButtonLabel()"
+      (click)="toggleRightsVisibility()"
+      [disabled]="!selectedRightsCount()"
+    />
+  </div>
+
+  @if (isShowDropdown$$()) {
+    <div class="rights-dropdown">
+      <p-multiSelect
+        class="rights-dropdown__select"
+        placeholder="Выберите права"
+        optionLabel="name"
+        dataKey="id"
+        filter="false"
+        showToggleAll="false"
+        fluid
+        [dt]="multiSelectConfig()"
+        [displaySelectedLabel]="false"
+        [options]="rights"
+        [(ngModel)]="selectedRights$$"
+      >
+      </p-multiSelect>
+    </div>
+  }
+
+}

@@ -1,0 +1,24 @@
+@if (admin(); as info) {
+
+  <span class="user__id">{{ info.admin.id }}</span>
+  <p class="user__name">{{ info.admin.name }}</p>
+
+  @if (info.firms && info.firms.length > 0) {
+    <div class="card-content">
+      @for (firm of info.firms; track firm.id) {
+        <prefix-tag [value]="firm.name"/>
+      }
+    </div>
+  } @else {
+    <span class="no-content"> - </span>
+  }
+  @if (info.roles && info.roles.length > 0) {
+    <div class="card-content">
+      @for (role of info.roles; track role.id) {
+        <prefix-tag [value]="role.name"/>
+      }
+    </div>
+  } @else {
+    <span class="no-content"> - </span>
+  }
+}

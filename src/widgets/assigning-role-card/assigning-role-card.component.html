@@ -1,0 +1,100 @@
+<div class="assigning-role-card" [class.editing]="isEditMode()">
+
+  <!-- Название роли -->
+  <div class="role-name">
+    @if (!isEditMode()) {
+      <!-- Режим просмотра -->
+      <span>{{ displayRoleName }}</span>
+    } @else {
+      <!-- Режим редактирования/создания -->
+      <prefix-autocomplete
+        placeholder="Наименование роли"
+        [suggestions]="roleSuggestions$$()"
+        [(selectedItem)]="selectedRole$$"
+        (onSearch)="handleRoleSearch($event)"
+      />
+    }
+  </div>
+
+  <!-- Филиалы -->
+  <div class="firms-section">
+    @if (!isEditMode()) {
+      <!-- Режим просмотра -->
+      @if (isGlobalRole) {
+        <span class="no-content">Глобально</span>
+      } @else if (displayFirms.length > 0) {
+        @for (firm of displayFirms; track firm.id) {
+          <prefix-tag [value]="firm.name"/>
+        }
+      }
+    } @else {
+      <!-- Режим редактирования/создания -->
+      <div class="edit-firms">
+        <p-multiselect
+          fluid
+          showHeader="false"
+          optionLabel="name"
+          placeholder="Выберите филиалы..."
+          [disabled]="isGlobal$$()"
+          [options]="availableFirms()"
+          [(ngModel)]="selectedFirms$$">
+
+        </p-multiselect>
+
+        <div class="global-checkbox">
+          <p-checkbox
+            inputId="global-checkbox"
+            [binary]="true"
+            [(ngModel)]="isGlobal$$"
+            (ngModelChange)="onGlobalChange($event)"
+          />
+          <label for="global-checkbox" class="checkbox-label">
+            Глобально
+          </label>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Кнопки действий -->
+  <div class="action-buttons">
+    @if (!isEditMode()) {
+      <!-- Режим просмотра -->
+      <p-button
+        text
+        class="action-button"
+        size="small"
+        icon="pi pi-pencil"
+        severity="contrast"
+        (click)="handleEdit()"
+      />
+      <p-button
+        text
+        class="action-button"
+        size="small"
+        icon="pi pi-trash"
+        severity="danger"
+        (click)="handleDelete()"
+      />
+    } @else {
+      <!-- Режим редактирования/создания -->
+      <p-button
+        text
+        class="action-button save-button"
+        size="small"
+        icon="pi pi-check"
+        severity="success"
+        (click)="handleSave()"
+        [disabled]="isSaveDisabled"
+      />
+      <p-button
+        text
+        class="action-button"
+        size="small"
+        icon="pi pi-times"
+        severity="danger"
+        (click)="handleCancel()"
+      />
+    }
+  </div>
+</div>

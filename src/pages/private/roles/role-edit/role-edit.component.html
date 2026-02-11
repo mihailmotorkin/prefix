@@ -1,0 +1,60 @@
+<prefix-layout-header title="Права: Роль {{ roleId() }}"/>
+
+<div class="role-edit__container">
+  <form
+    class="role-edit__form"
+    [formGroup]="form"
+  >
+    <label class="role-edit__label">
+      ID роли
+      <input
+        class="role-edit__input"
+        type="text"
+        variant="outlined"
+        fluid
+        readonly
+        pInputText
+        formControlName="id"
+      />
+    </label>
+    <label class="role-edit__label">
+      Название роли
+      <input
+        class="role-edit__input"
+        type="text"
+        pInputText
+        fluid
+        variant="outlined"
+        formControlName="name"
+      />
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <span class="role-edit__error">
+          @if (form.controls.name.hasError('required')) {
+            Название роли обязательно
+          }
+        </span>
+      }
+    </label>
+    <label class="role-edit__label">
+      Описание
+      <textarea
+        class="role-edit__textarea"
+        pTextarea
+        fluid
+        variant="outlined"
+        formControlName="description"
+        [autoResize]="true"
+      ></textarea>
+    </label>
+
+    <prefix-role-rights #rights />
+
+    <p-button
+      class="role-edit__button save-button"
+      label="Сохранить"
+      type="submit"
+      (click)="save()"
+    />
+  </form>
+
+</div>

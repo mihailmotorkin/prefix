@@ -1,0 +1,23 @@
+.user-role__toolbar {
+  ::ng-deep .p-toolbar-start {
+    flex: 1 1 auto;
+  }
+
+  &-edit {
+    border: none;
+    gap: 32px;
+
+  }
+}
+
+.role-item__input {
+  transition: all 0.2s ease;
+
+  &-readonly {
+    cursor: pointer;
+  }
+
+  &:not(&-readonly) {
+    cursor: text;
+  }
+}

@@ -1,0 +1,8 @@
+@for (role of roles(); track role.id) {
+  <prefix-role-item
+    [role]="role"
+    (edit)="onEdit(role.id)"
+    (rename)="onRename(role.id, $event)"
+    (remove)="onRemove(role.id)"
+  />
+}

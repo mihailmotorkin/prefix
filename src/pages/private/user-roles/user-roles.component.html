@@ -1,0 +1,65 @@
+<prefix-layout-header title="Роли сотрудников"/>
+
+<div class="staffer-roles__header">
+  <p-button
+    class="staffer-roles__reset-button"
+    label="Сбросить"
+    icon="pi pi-times"
+    severity="secondary"
+    (click)="resetFilters()"
+  />
+</div>
+
+<main class="staffer-roles__main">
+  <div class="staffer-roles__filters">
+
+    <div class="filter-item">
+      <prefix-autocomplete
+        placeholder="id/ФИО"
+        [suggestions]="adminSuggestions$$()"
+        [(selectedItem)]="selectedAdmin$$"
+        (onSearch)="handleSearch($event)"
+      />
+    </div>
+    <div class="filter-item">
+      <p-multiselect
+        fluid
+        showHeader="false"
+        optionLabel="name"
+        placeholder="Филиал"
+        [displaySelectedLabel]="false"
+        [options]="firms$$()"
+        [ngModel]="selectedFirms$$()"
+        (ngModelChange)="onFirmsChange($event)"
+      ></p-multiselect>
+    </div>
+    <div class="filter-item">
+      <p-multiselect
+        fluid
+        showHeader="false"
+        optionLabel="name"
+        placeholder="Роль"
+        [displaySelectedLabel]="false"
+        [options]="roles$$()"
+        [ngModel]="selectedRoles$$()"
+        (ngModelChange)="onRolesChange($event)"
+      ></p-multiselect>
+    </div>
+  </div>
+
+  <div class="staffer-roles__container">
+    @for (admin of filteredAdmins$$(); track admin) {
+      <div class="staffer-roles__item">
+        <prefix-user-role-card
+          [admin]="admin"
+          (onCardClick)="navigateToAssigningRoles(admin.admin.id)"
+        />
+      </div>
+    }
+  </div>
+
+  <div class="staffer-roles__pagination">
+    <prefix-paginator/>
+  </div>
+
+</main>

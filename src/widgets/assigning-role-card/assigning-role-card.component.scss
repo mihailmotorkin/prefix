@@ -1,0 +1,111 @@
+.assigning-role-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 34px 34px 34px 20px;
+  background: #FFFFFF;
+  border-top: var(--border);
+
+  &.editing {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .role-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: #111827;
+    min-width: 0;
+
+    span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .firms-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+
+    .no-content {
+      color: #9CA3AF;
+    }
+
+    .edit-firms {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+
+      p-multiselect {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .global-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+
+        .checkbox-label {
+          cursor: pointer;
+          user-select: none;
+          font-size: 14px;
+          color: #374151;
+        }
+      }
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+
+    .action-button {
+      ::ng-deep .p-button {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        .p-button-icon {
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+    }
+
+    .save-button {
+      ::ng-deep .p-button {
+        color: #059669;
+
+        &:hover:not(:disabled) {
+          background: #D1FAE5;
+        }
+      }
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .assigning-role-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    .action-buttons {
+      justify-content: flex-start;
+    }
+  }
+}
