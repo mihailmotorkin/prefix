@@ -1,5 +1,4 @@
-import { Component, inject, input, viewChild } from '@angular/core';
-import { Button } from 'primeng/button';
+import { Component, inject, input, OnInit, viewChild } from '@angular/core';
 import { InputText } from 'primeng/inputtext';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RoleRightsComponent } from '#widgets/roles/role-rights';
@@ -7,20 +6,21 @@ import { Textarea } from 'primeng/textarea';
 import { UpdateRoleDto } from '#domains/roles/roles.model';
 import { Router } from '@angular/router';
 import { RolesService } from '#domains/roles/roles.service';
+import { RoleSaveComponent } from '#features/roles/role-save';
 
 @Component({
   selector: 'prefix-role-form',
   imports: [
-    Button,
     InputText,
     ReactiveFormsModule,
     RoleRightsComponent,
-    Textarea
+    Textarea,
+    RoleSaveComponent
   ],
   templateUrl: './role-form.component.html',
   styleUrl: './role-form.component.scss',
 })
-export class RoleFormComponent {
+export class RoleFormComponent implements OnInit {
   private router = inject(Router);
   private service = inject(RolesService);
 

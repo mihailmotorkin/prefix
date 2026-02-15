@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { Role, RoleRight, UpdateRoleDto } from '#domains/roles/roles.model';
-import { ROLE_RIGHTS, ROLES } from '#domains/roles/roles-mock-data';
+import { Role, UpdateRoleDto } from '#domains/roles/roles.model';
+import { ROLES } from '#domains/roles/roles-mock-data';
+import { RoleRight } from '#domains/role-rights';
+import { ROLE_RIGHTS } from '#domains/role-rights/role-rights.mock-data';
 
 @Injectable({
   providedIn: 'root'

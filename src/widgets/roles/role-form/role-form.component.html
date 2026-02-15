@@ -46,10 +46,5 @@
 
   <prefix-role-rights #rights />
 
-  <p-button
-    class="role-edit__button save-button"
-    label="Сохранить"
-    type="submit"
-    (click)="save()"
-  />
+  <prefix-role-save (submit)="save()" />
 </form>

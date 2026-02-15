@@ -3,8 +3,8 @@ import { Button } from 'primeng/button';
 import { Chip } from 'primeng/chip';
 import { FormsModule } from '@angular/forms';
 import { MultiSelect } from 'primeng/multiselect';
-import { RoleRight } from '#domains/roles/roles.model';
-import { ROLE_RIGHTS } from '#domains/roles/roles-mock-data';
+import { RoleRight } from '#domains/role-rights';
+import { ROLE_RIGHTS } from '#domains/role-rights/role-rights.mock-data';
 
 @Component({
   selector: 'prefix-role-rights',
