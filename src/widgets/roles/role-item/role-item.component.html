@@ -20,22 +20,19 @@
 
     <ng-template #end>
       @if(!isEditMode()) {
-        <p-button
-          text
-          icon ="pi pi-list"
+        <prefix-icon-button
+          icon="pi pi-list"
           severity="contrast"
           (click)="editRole()"
         />
-        <p-button
-          text
-          icon ="pi pi-trash"
+        <prefix-icon-button
+          icon="pi pi-trash"
           severity="danger"
           (click)="removeRole()"
         />
       } @else {
-        <p-button
-          text
-          icon ="pi pi-check"
+        <prefix-icon-button
+          icon="pi pi-check"
           severity="info"
           (click)="saveRole()"
         />

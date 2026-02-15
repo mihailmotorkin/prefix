@@ -1,13 +1,27 @@
-import { Component, computed, effect, ElementRef, input, output, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  input,
+  output,
+  signal,
+  viewChild
+} from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
-import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { Role } from '#domains/roles/roles.model';
+import { IconButtonComponent } from '#shared/components/icon-button';
 
 @Component({
   selector: 'prefix-role-item',
-  imports: [ToolbarModule, Button, FormsModule, InputText],
+  imports: [
+    ToolbarModule,
+    FormsModule,
+    InputText,
+    IconButtonComponent
+  ],
   templateUrl: './role-item.component.html',
   styleUrl: './role-item.component.scss',
 })
@@ -41,7 +55,6 @@ export class RoleItemComponent {
   }
 
   editRoleTitle() {
-    console.log('edit role');
     this.isEditMode.update(() => true);
     this.roleInput()?.nativeElement.focus();
   }
